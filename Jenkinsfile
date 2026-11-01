@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                bat 'py -m pip install -r requirements.txt'
+                bat 'python -m pip install -r requirements.txt'
             }
         }
         stage('Generate prompts') {
