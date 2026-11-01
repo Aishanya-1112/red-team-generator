@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(name: 'INPUT_ONE', defaultValue: 'demo application')
         string(name: 'INPUT_TWO', defaultValue: 'prompt injection')
-        string(name: 'SERVICE_URL', defaultValue: 'http://host.docker.internal:8000/generate')
+        string(name: 'SERVICE_URL', defaultValue: 'http://localhost:8000/generate')
     }
 
     stages {
@@ -15,12 +15,12 @@ pipeline {
         }
         stage('Generate prompts') {
             steps {
-                bat 'py scripts\\call_service.py --url "%SERVICE_URL%" --input-one "%INPUT_ONE%" --input-two "%INPUT_TWO%" --output output\\prompts.json'
+                bat 'python scripts\\call_service.py --url "%SERVICE_URL%" --input-one "%INPUT_ONE%" --input-two "%INPUT_TWO%" --output output\\prompts.json'
             }
         }
         stage('Create Excel report') {
             steps {
-                bat 'py scripts\\to_excel.py output\\prompts.json output\\prompts.xlsx'
+                bat 'python scripts\\to_excel.py output\\prompts.json output\\prompts.xlsx'
             }
         }
     }
